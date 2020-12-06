@@ -1,0 +1,75 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Gerenciamento de agendamentos</li>
+  </ol>
+</nav>
+<div class="container">
+  <div class="card list-agendamento">
+    <h5 class="card-header">Lista de agendamentos</h5>
+    <div class="card-body">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Coordenador</th>
+              <th scope="col">Assunto</th>
+              <th scope="col">Descricao</th>
+              <th scope="col">Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let agendamento of agendamentos">
+              <td>{{agendamento.id}}</td>
+              <td>{{agendamento.coordenador}}</td>
+              <td>{{agendamento.assunto}}</td>
+              <td>{{agendamento.descricao}}</td>
+              <td>{{agendamento.data}}</td>
+              
+              <td>
+                <button type="button" class="btn btn-warning btn-sm" (click)="editAgendamento(agendamento)">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteAgendamento(agendamento)">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+
+  <div class="card add-agendamento">
+      <h5 class="card-header">Adicionar/Atualizar agendamento</h5>
+      <div class="card-body">
+          <form id="add-form" (ngSubmit)="f.form.valid && saveAgendamento(f)" #f="ngForm" novalidate>
+            <div class="form-group">
+                <label for="coordenador">Coordenador</label>
+                <input type="text" [(ngModel)]="agendamento.coordenador" id="coordenador" name="coordenador" #coordenador="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && coordenador.invalid }" placeholder="Digite o coordenador">
+                <!-- <div *ngIf="f.submitted && coordenador.invalid" class="invalid-feedback">
+                    <div *ngIf="coordenador.errors.required">Coordenador é obrigatório</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <label for="assunto">Assunto</label>
+                <input type="text" [(ngModel)]="agendamento.assunto" id="assunto" name="assunto" #assunto="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && assunto.invalid }" placeholder="Digite o Assunto">
+                <!-- <div *ngIf="f.submitted && assunto.invalid" class="invalid-feedback">
+                    <div *ngIf="assunto.errors.required">Assunto é obrigatória</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descricao</label>
+                <input type="text" [(ngModel)]="agendamento.descricao" id="descricao" name="descricao" #descricao="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && descricao.invalid }" placeholder="Digite a Descricao">
+                <!-- <div *ngIf="f.submitted && descricao.invalid" class="invalid-feedback">
+                    <div *ngIf="descricao.errors.required">Descricao é obrigatório</div>
+                </div> -->
+            </div>
+            <div class="form-group">
+              <label for="data">Data</label>
+              <input type="date" [(ngModel)]="agendamento.data" id="data" name="data" #data="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && data.invalid }" placeholder="Digite a Data">
+              <!-- <div *ngIf="f.submitted && data.invalid" class="invalid-feedback">
+                  <div *ngIf="data.errors.required">Data é obrigatório</div>
+              </div> -->
+          </div>
+            <button type="submit" class="btn btn-primary btn-add-agendamento">Salvar</button>
+            <button type="reset" class="btn btn-secondary btn-add-agendamento" (click)="cleanForm(f)">Cancelar</button>
+          </form>
+      </div>
+    </div>
+</div>
